@@ -3,7 +3,7 @@ module.exports = (app) => {
   const register = (req, res) => {
     const adminKey = "hello2020placeholder";
     const tempUser = req.body;
-    let newUser;
+    let newUser = {};
     if (tempUser.role === "admin") {
       if (tempUser.adminKey === adminKey) {
         newUser.username = tempUser.username;
@@ -21,11 +21,12 @@ module.exports = (app) => {
       newUser.password = tempUser.password;
       newUser.role = "user";
       newUser.name = tempUser.name;
+
+      usersDao.createUser(newUser).then((actualUser) => {
+        req.session["currentUser"] = actualUser;
+        res.json(actualUser);
+      });
     }
-    usersDao.createUser(newUser).then((actualUser) => {
-      req.session["currentUser"] = actualUser;
-      res.json(actualUser);
-    });
   };
 
   const login = (req, res) => {
