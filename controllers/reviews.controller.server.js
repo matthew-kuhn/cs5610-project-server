@@ -4,7 +4,8 @@ module.exports = (app) => {
     if (req.session["currentUser"]) {
       console.log(req.session);
       const review = req.body;
-      review.userId = req.session["currentUser"].username;
+      review.username = req.session["currentUser"].username;
+      review.userId = req.session["currentUser"].userId;
       reviewsDao
         .createReview(review)
         .then((actualReview) => res.json(actualReview));
