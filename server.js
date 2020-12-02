@@ -23,6 +23,7 @@ app.use(cors({
 }))
 
 require('./controllers/users.controller.server')(app)
+require('./controllers/reviews.controller.server')(app)
 
 app.listen(8080)
 
