@@ -21,11 +21,17 @@ module.exports = (app) => {
       newUser.password = tempUser.password;
       newUser.role = "user";
       newUser.name = tempUser.name;
-
-      usersDao.createUser(newUser).then((actualUser) => {
-        req.session["currentUser"] = actualUser;
-        res.json(actualUser);
-      });
+      if (
+        usersDao.findUserByUsername(newUser.username).then((user) => {
+          if (user) {
+            res.status(400).send({ message: "User name already exists" });
+          }
+        })
+      )
+        usersDao.createUser(newUser).then((actualUser) => {
+          req.session["currentUser"] = actualUser;
+          res.json(actualUser);
+        });
     }
   };
 
