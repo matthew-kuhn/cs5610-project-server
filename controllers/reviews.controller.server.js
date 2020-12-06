@@ -6,6 +6,7 @@ module.exports = (app) => {
       const review = req.body;
       review.username = req.session["currentUser"].username;
       review.userId = req.session["currentUser"].userId;
+      review.flagged = false;
       reviewsDao
         .createReview(review)
         .then((actualReview) => res.json(actualReview));
@@ -15,9 +16,9 @@ module.exports = (app) => {
   };
 
   const getReviewsForUser = (req, res) => {
-    const userId = req.params.userId;
+    const username = req.params.username;
     reviewsDao
-      .findReviewsForUser(userId)
+      .findReviewsForUser(username)
       .then((actualReviews) => res.json(actualReviews));
   };
 
@@ -28,7 +29,20 @@ module.exports = (app) => {
       .then((actualReviews) => res.json(actualReviews));
   };
 
+  const flagReview = (req, res) => {
+    const review = req.body;
+    reviewsDao.flagReview(review)
+        .then((actualReview) => res.json(actualReview))
+  }
+
+  const getAllReviews = (req, res) => {
+    reviewsDao.findAllReviews()
+        .then((actualReviews) => res.json(actualReviews))
+  }
+
   app.post("/api/reviews", postReview);
-  app.get("/api/users/:userId/reviews", getReviewsForUser);
+  app.get("/api/users/:username/reviews", getReviewsForUser);
   app.get("/api/movies/:movieId/reviews", getReviewsForMovie);
+  app.put("/api/reviews", flagReview)
+  app.get("/api/reviews", getAllReviews)
 };
