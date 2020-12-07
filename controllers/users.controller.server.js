@@ -86,9 +86,16 @@ module.exports = (app) => {
     res.send(200);
   };
 
+  const blockUser = (req, res) => {
+    const username = req.params.username;
+    usersDao.blockUser(username)
+        .then((actualUser) => res.json(actualUser))
+  }
+
   app.post("/api/login", login);
   app.post("/api/register", register);
   app.get("/api/currentUser", currentUser);
   app.get("/api/users/:username", getUser);
   app.post("/api/logout", logout);
+  app.put("/api/users/:username", blockUser)
 };

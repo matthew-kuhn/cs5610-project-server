@@ -40,9 +40,16 @@ module.exports = (app) => {
         .then((actualReviews) => res.json(actualReviews))
   }
 
+  const deleteReview = (req, res) => {
+    const reviewId = req.params.reviewId;
+    reviewsDao.deleteReview(reviewId)
+        .then((response) => res.send(response))
+  }
+
   app.post("/api/reviews", postReview);
   app.get("/api/users/:username/reviews", getReviewsForUser);
   app.get("/api/movies/:movieId/reviews", getReviewsForMovie);
   app.put("/api/reviews", flagReview)
   app.get("/api/reviews", getAllReviews)
+  app.delete("/api/reviews/:reviewId", deleteReview)
 };
