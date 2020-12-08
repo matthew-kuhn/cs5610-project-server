@@ -10,6 +10,7 @@ app.use(session({
     secret: 'adopifjqeporihgepoih349ru834tgihej'
 }));
 
+
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
