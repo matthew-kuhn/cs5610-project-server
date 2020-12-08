@@ -4,12 +4,10 @@ const app = express()
 const cors = require('cors')
 const session = require('express-session');
 
-app.set('trust proxy', 1)
 app.use(session({
     resave: false, // don't save session if unmodified
     saveUninitialized: false, // don't create session until something stored
-    secret: 'adopifjqeporihgepoih349ru834tgihej',
-    cookie: { secure: true }
+    secret: 'adopifjqeporihgepoih349ru834tgihej'
 }));
 
 const bodyParser = require('body-parser');
