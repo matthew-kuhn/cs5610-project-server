@@ -19,7 +19,7 @@ mongoose.connect(`mongodb+srv://${process.env.DB_ADMIN_NAME}:${process.env.DB_PA
     { useNewUrlParser: true, useUnifiedTopology: true })
 
 app.use(cors({
-    origin: '*',
+    origin: 'https://tranquil-basin-87439.herokuapp.com',
     credentials: true,
 }))
 
