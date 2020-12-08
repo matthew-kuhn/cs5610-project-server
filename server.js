@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
 const cors = require('cors')
@@ -14,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost:27017/cs5610-backend-db',
+mongoose.connect(`mongodb+srv://${process.env.DB_ADMIN_NAME}:${process.env.DB_PASSWORD}@cluster0.ecgcm.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,
     { useNewUrlParser: true, useUnifiedTopology: true })
 
 app.use(cors({
