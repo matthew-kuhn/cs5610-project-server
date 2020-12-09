@@ -14,10 +14,15 @@ const db = mongoose.connection;
 
 app.use(
   session({
-    resave: false, // don't save session if unmodified
-    saveUninitialized: false, // don't create session until something stored
-    secret: "adopifjqeporihgepoih349ru834tgihej",
-    store: new MongoStore({ mongooseConnection: db }),
+      resave: false, // don't save session if unmodified
+      saveUninitialized: false, // don't create session until something stored
+      secret: "adopifjqeporihgepoih349ru834tgihej",
+      store: new MongoStore({ mongooseConnection: db }),
+      cookie: {
+          secure: true,
+          maxAge: 86400,
+          sameSite: "none",
+      }
   })
 );
 
@@ -27,8 +32,9 @@ app.use(bodyParser.json());
 
 app.use(
   cors({
-    origin: "https://tranquil-basin-87439.herokuapp.com",
-    credentials: true,
+      origin: "http://localhost:3000",
+      // origin: "https://tranquil-basin-87439.herokuapp.com",
+      credentials: true,
   })
 );
 
