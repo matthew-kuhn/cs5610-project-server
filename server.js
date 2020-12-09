@@ -32,8 +32,8 @@ app.use(bodyParser.json());
 
 app.use(
   cors({
-      origin: "http://localhost:3000",
-      // origin: "https://tranquil-basin-87439.herokuapp.com",
+      // origin: "http://localhost:3000",
+      origin: "https://tranquil-basin-87439.herokuapp.com",
       credentials: true,
   })
 );
