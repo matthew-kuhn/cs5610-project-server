@@ -22,7 +22,8 @@ app.use(
       proxy : true,
       cookie: {
           secure: true,
-          maxAge: 86400
+          maxAge: 86400,
+          sameSite: "None"
       }
   })
 );
