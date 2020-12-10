@@ -12,16 +12,17 @@ mongoose.connect(
 );
 const db = mongoose.connection;
 
+app.enable('trust proxy');
 app.use(
   session({
       resave: false, // don't save session if unmodified
       saveUninitialized: false, // don't create session until something stored
       secret: "adopifjqeporihgepoih349ru834tgihej",
       store: new MongoStore({ mongooseConnection: db }),
+      proxy : true,
       cookie: {
           secure: true,
-          maxAge: 86400,
-          sameSite: "none",
+          maxAge: 86400
       }
   })
 );
