@@ -83,7 +83,7 @@ module.exports = (app) => {
 
   const logout = (req, res) => {
     req.session.destroy();
-    res.send(200);
+    res.sendStatus(200);
   };
 
   const blockUser = (req, res) => {
