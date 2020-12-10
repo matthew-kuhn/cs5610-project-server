@@ -7,7 +7,7 @@ const MongoStore = require("connect-mongo")(session);
 
 const mongoose = require("mongoose");
 mongoose.connect(
-  `mongodb+srv://${process.env.DB_ADMIN_NAME}:${process.env.DB_PASSWORD}@cluster0.ecgcm.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,
+  `mongodb+srv://JackAdmin:GQzeMp3obyCfICpx@cluster0.ecgcm.mongodb.net/cs5610-backend?retryWrites=true&w=majority`, // TODO: change back
   { useNewUrlParser: true, useUnifiedTopology: true }
 );
 const db = mongoose.connection;
@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 
 app.use(
   cors({
-    origin: "https://tranquil-basin-87439.herokuapp.com",
+    origin: "http://localhost:3000", //TODO: change back
     credentials: true,
   })
 );

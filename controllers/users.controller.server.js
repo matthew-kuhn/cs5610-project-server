@@ -11,11 +11,11 @@ module.exports = (app) => {
         newUser.role = "admin";
         newUser.name = tempUser.name;
         if (
-            usersDao.findUserByUsername(newUser.username).then((user) => {
-              if (user) {
-                res.status(400).send({ message: "User name already exists" });
-              }
-            })
+          usersDao.findUserByUsername(newUser.username).then((user) => {
+            if (user) {
+              res.sendStatus(400).send({ message: "User name already exists" });
+            }
+          })
         )
           usersDao.createUser(newUser).then((actualUser) => {
             req.session["currentUser"] = actualUser;
@@ -23,7 +23,7 @@ module.exports = (app) => {
           });
         return;
       } else {
-        res.status(400).send({
+        res.sendStatus(400).send({
           message: "Admin Key incorrect",
         });
         return;
@@ -36,7 +36,7 @@ module.exports = (app) => {
       if (
         usersDao.findUserByUsername(newUser.username).then((user) => {
           if (user) {
-            res.status(400).send({ message: "User name already exists" });
+            res.sendStatus(400).send({ message: "User name already exists" });
           }
         })
       )
@@ -56,7 +56,7 @@ module.exports = (app) => {
         console.log(req.sessionID);
         res.send(user);
       } else {
-        res.sendStatus(403);
+        res.sendStatus(403).send({ message: "Invalid Username or Password" });
       }
     });
   };
@@ -88,14 +88,13 @@ module.exports = (app) => {
 
   const blockUser = (req, res) => {
     const username = req.params.username;
-    usersDao.blockUser(username)
-        .then((actualUser) => res.json(actualUser))
-  }
+    usersDao.blockUser(username).then((actualUser) => res.json(actualUser));
+  };
 
   app.post("/api/login", login);
   app.post("/api/register", register);
   app.get("/api/currentUser", currentUser);
   app.get("/api/users/:username", getUser);
   app.post("/api/logout", logout);
-  app.put("/api/users/:username", blockUser)
+  app.put("/api/users/:username", blockUser);
 };
