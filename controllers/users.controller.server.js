@@ -51,6 +51,7 @@ module.exports = (app) => {
     const username = req.body.username;
     const password = req.body.password;
     usersDao.findUserByCredentials(username, password).then((user) => {
+      console.log('got user', user, ' from db for username', username)
       if (user) {
         req.session["currentUser"] = user;
         console.log(req.sessionID);
