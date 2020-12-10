@@ -18,6 +18,7 @@ app.use(
       saveUninitialized: false, // don't create session until something stored
       secret: "adopifjqeporihgepoih349ru834tgihej",
       store: new MongoStore({ mongooseConnection: db }),
+      proxy: true,
       cookie: {
           secure: true,
           maxAge: 86400,
