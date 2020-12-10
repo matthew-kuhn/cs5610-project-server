@@ -53,9 +53,11 @@ module.exports = (app) => {
     usersDao.findUserByCredentials(username, password).then((user) => {
       console.log('got user', user, ' from db for username', username)
       if (user) {
-        req.session["currentUser"] = user;
-        console.log(req.sessionID);
-        res.send(user);
+        req.session.regenerate(() => {
+          req.session["currentUser"] = user;
+          console.log("session id:", req.sessionID);
+          res.send(user);
+        })
       } else {
         res.sendStatus(403);
       }
