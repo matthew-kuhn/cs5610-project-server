@@ -12,12 +12,18 @@ mongoose.connect(
 );
 const db = mongoose.connection;
 
+app.enable("trust proxy");
 app.use(
   session({
     resave: false, // don't save session if unmodified
     saveUninitialized: false, // don't create session until something stored
     secret: "adopifjqeporihgepoih349ru834tgihej",
     store: new MongoStore({ mongooseConnection: db }),
+    proxy: true,
+    cookie: {
+      secure: true,
+      maxAge: 1800000,
+    },
   })
 );
 
@@ -27,7 +33,8 @@ app.use(bodyParser.json());
 
 app.use(
   cors({
-    origin: "http://localhost:3000", //TODO: change back
+    // origin: "http://localhost:3000",
+    origin: "https://tranquil-basin-87439.herokuapp.com",
     credentials: true,
   })
 );
