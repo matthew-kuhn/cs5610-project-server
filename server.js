@@ -7,7 +7,7 @@ const MongoStore = require("connect-mongo")(session);
 
 const mongoose = require("mongoose");
 mongoose.connect(
-  `mongodb+srv://user:password@cluster0.ecgcm.mongodb.net/dbnamed?retryWrites=true&w=majority`, // TODO: change back
+  `mongodb+srv://${process.env.DB_ADMIN_NAME}:${process.env.DB_PASSWORD}@cluster0.ecgcm.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,
   { useNewUrlParser: true, useUnifiedTopology: true }
 );
 const db = mongoose.connection;
