@@ -15,7 +15,6 @@ const db = mongoose.connection;
 app.enable("trust proxy");
 app.use(
   session({
-<<<<<<< HEAD
     resave: false, // don't save session if unmodified
     saveUninitialized: false, // don't create session until something stored
     secret: "adopifjqeporihgepoih349ru834tgihej",
@@ -23,20 +22,9 @@ app.use(
     proxy: true,
     cookie: {
       secure: true,
-      maxAge: 1800000,
+      maxAge: 3600000,
+      sameSite: "None",
     },
-=======
-      resave: false, // don't save session if unmodified
-      saveUninitialized: false, // don't create session until something stored
-      secret: "adopifjqeporihgepoih349ru834tgihej",
-      store: new MongoStore({ mongooseConnection: db }),
-      proxy : true,
-      cookie: {
-          secure: true,
-          maxAge: 3600000,
-          sameSite: "None"
-      }
->>>>>>> jiaqian-shi
   })
 );
 
