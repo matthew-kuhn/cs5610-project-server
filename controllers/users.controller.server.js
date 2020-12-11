@@ -53,7 +53,7 @@ module.exports = (app) => {
     usersDao.findUserByCredentials(username, password).then((user) => {
       if (user) {
         req.session["currentUser"] = user;
-        console.log(req.sessionID);
+        console.log(req.session);
         res.send(user);
       } else {
         res.sendStatus(403).send({ message: "Invalid Username or Password" });
@@ -62,7 +62,7 @@ module.exports = (app) => {
   };
 
   const currentUser = (req, res) => {
-    console.log(req.sessionID);
+    console.log(req.session);
     if (req.session["currentUser"]) {
       res.json(req.session["currentUser"]);
     } else {
