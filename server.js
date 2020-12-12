@@ -6,26 +6,40 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 
 const mongoose = require("mongoose");
+// mongoose.connect(
+//   `mongodb+srv://${process.env.DB_ADMIN_NAME}:${process.env.DB_PASSWORD}@cluster0.ecgcm.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,
+//   { useNewUrlParser: true, useUnifiedTopology: true }
+// );
+
 mongoose.connect(
-  `mongodb+srv://${process.env.DB_ADMIN_NAME}:${process.env.DB_PASSWORD}@cluster0.ecgcm.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,
-  { useNewUrlParser: true, useUnifiedTopology: true }
+    `mongoose.connect('mongodb://localhost:27017/cs5610-backend-db`,
+    { useNewUrlParser: true, useUnifiedTopology: true }
 );
 const db = mongoose.connection;
 
-app.enable("trust proxy");
+// app.enable("trust proxy");
+// app.use(
+//   session({
+//     resave: false, // don't save session if unmodified
+//     saveUninitialized: false, // don't create session until something stored
+//     secret: "adopifjqeporihgepoih349ru834tgihej",
+//     store: new MongoStore({ mongooseConnection: db }),
+//     proxy: true,
+//     cookie: {
+//       secure: true,
+//       maxAge: 3600000,
+//       sameSite: "None",
+//     },
+//   })
+// );
+
 app.use(
-  session({
-    resave: false, // don't save session if unmodified
-    saveUninitialized: false, // don't create session until something stored
-    secret: "adopifjqeporihgepoih349ru834tgihej",
-    store: new MongoStore({ mongooseConnection: db }),
-    proxy: true,
-    cookie: {
-      secure: true,
-      maxAge: 3600000,
-      sameSite: "None",
-    },
-  })
+    session({
+        resave: false, // don't save session if unmodified
+        saveUninitialized: false, // don't create session until something stored
+        secret: "adopifjqeporihgepoih349ru834tgihej",
+        store: new MongoStore({mongooseConnection: db})
+    })
 );
 
 const bodyParser = require("body-parser");

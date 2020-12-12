@@ -94,10 +94,17 @@ module.exports = (app) => {
     usersDao.blockUser(username).then((actualUser) => res.json(actualUser));
   };
 
+  const editUser = (req, res) => {
+    const user = req.body;
+    usersDao.editUser(user).then((actualUser) => res.json(actualUser));
+  }
+
   app.post("/api/login", login);
   app.post("/api/register", register);
   app.get("/api/currentUser", currentUser);
   app.get("/api/users/:username", getUser);
   app.post("/api/logout", logout);
+  //todo these addresses aren't REST standard
   app.put("/api/users/:username", blockUser);
+  app.put("/api/users", editUser);
 };
