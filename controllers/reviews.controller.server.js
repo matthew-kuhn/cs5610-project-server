@@ -31,25 +31,35 @@ module.exports = (app) => {
 
   const flagReview = (req, res) => {
     const review = req.body;
-    reviewsDao.flagReview(review)
-        .then((actualReview) => res.json(actualReview))
-  }
+    reviewsDao
+      .flagReview(review)
+      .then((actualReview) => res.json(actualReview));
+  };
 
   const getAllReviews = (req, res) => {
-    reviewsDao.findAllReviews()
-        .then((actualReviews) => res.json(actualReviews))
-  }
+    reviewsDao
+      .findAllReviews()
+      .then((actualReviews) => res.json(actualReviews));
+  };
 
   const deleteReview = (req, res) => {
     const reviewId = req.params.reviewId;
-    reviewsDao.deleteReview(reviewId)
-        .then((response) => res.send(response))
-  }
+    reviewsDao.deleteReview(reviewId).then((response) => res.send(response));
+  };
+
+  const editReview = (req, res) => {
+    const reviewId = req.params.reviewId;
+    const review = req.body;
+    reviewsDao
+      .editReview(reviewId, review)
+      .then((response) => res.send(response));
+  };
 
   app.post("/api/reviews", postReview);
   app.get("/api/users/:username/reviews", getReviewsForUser);
   app.get("/api/movies/:movieId/reviews", getReviewsForMovie);
-  app.put("/api/reviews", flagReview)
-  app.get("/api/reviews", getAllReviews)
-  app.delete("/api/reviews/:reviewId", deleteReview)
+  app.put("/api/reviews", flagReview);
+  app.get("/api/reviews", getAllReviews);
+  app.delete("/api/reviews/:reviewId", deleteReview);
+  app.put("/api/reviews/:reviewId", editReview);
 };
