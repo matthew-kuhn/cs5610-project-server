@@ -7,7 +7,10 @@ const findReviewsForUser = (username) =>
 const flagReview = (review) =>
   reviewsModel.findByIdAndUpdate(review._id, { flagged: true });
 const editReview = (reviewId, review) =>
-  reviewsModel.findByIdAndUpdate(reviewId, { text: review.text });
+  reviewsModel.findByIdAndUpdate(reviewId, {
+    text: review.text,
+    username: review.username,
+  });
 const findAllReviews = () => reviewsModel.find({});
 const deleteReview = (reviewId) => reviewsModel.findByIdAndDelete(reviewId);
 module.exports = {
