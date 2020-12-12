@@ -1,7 +1,7 @@
 const usersDao = require("../daos/users.dao.server");
 module.exports = (app) => {
   const register = (req, res) => {
-    const adminKey = "hello2020placeholder";
+    const adminKey = "xXx_supersecretadminkey_xXX";
     const tempUser = req.body;
     let newUser = {};
     if (tempUser.role === "admin") {
@@ -55,7 +55,7 @@ module.exports = (app) => {
       if (user) {
         req.session.regenerate(() => {
           req.session["currentUser"] = user;
-          console.log("session id:", req.sessionID);
+          // console.log("session id:", req.sessionID);
           res.send(user);
         });
       } else {
@@ -65,7 +65,7 @@ module.exports = (app) => {
   };
 
   const currentUser = (req, res) => {
-    console.log(req.session);
+    // console.log(req.session);
     if (req.session["currentUser"]) {
       res.json(req.session["currentUser"]);
     } else {
