@@ -90,9 +90,18 @@ module.exports = (app) => {
   };
 
   const blockUser = (req, res) => {
-    const username = req.params.username;
-    usersDao.blockUser(username).then((actualUser) => res.json(actualUser));
+    const currentAdmin = req.session["currentUser"];
+    const userId = req.params.userId;
+    usersDao.addBlockedUser(userId, currentAdmin).then((actualUser) => console.log(actualUser))
+    usersDao.blockUser(userId).then((actualUser) => res.json(actualUser));
   };
+
+  const unblockUser = (req, res) => {
+    const currentAdmin = req.session["currentUser"];
+    const userId = req.params.userId;
+    usersDao.deleteBlockedUser(userId, currentAdmin).then((actualUser) => console.log(actualUser))
+    usersDao.unblockUser(userId).then((actualUser) => res.json(actualUser));
+  }
 
   const editUser = (req, res) => {
     const user = req.body;
@@ -105,6 +114,7 @@ module.exports = (app) => {
   app.get("/api/users/:username", getUser);
   app.post("/api/logout", logout);
   //todo these addresses aren't REST standard
-  app.put("/api/users/:username", blockUser);
+  app.put("/api/users/block/:userId", blockUser);
+  app.put("/api/users/unblock/:userId", unblockUser);
   app.put("/api/users", editUser);
 };
