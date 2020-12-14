@@ -13,7 +13,9 @@ const editReview = (reviewId, review) =>
 const findAllReviews = () => reviewsModel.find({});
 const deleteReview = (reviewId) => reviewsModel.findByIdAndDelete(reviewId);
 const addReply = (reviewId, reply) =>
-  reviewsModel.findByIdAndUpdate(reviewId, { $push: { replies: reply._id } });
+  reviewsModel
+    .findByIdAndUpdate(reviewId, { $push: { replies: reply._id } })
+    .then(reviewsModel.findById(reviewId));
 const deleteReply = (reviewId, replyId) =>
   reviewsModel.findByIdAndUpdate(reviewId, { $pull: { replies: replyId } });
 module.exports = {

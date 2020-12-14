@@ -3,12 +3,15 @@ const reviewsDao = require("../daos/reviews.dao.server");
 module.exports = (app) => {
   const postReply = (req, res) => {
     if (req.session["currentUser"]) {
+      const reviewId = req.params.reviewId;
       const reply = req.body;
       reply.username = req.session["currentUser"].username;
       reply.userId = req.session["currentUser"]._id;
       reply.flagged = false;
       repliesDao.createReply(reply).then((reply) => {
-        reviewsDao.addReply(req.params.reviewId, reply._id);
+        reviewsDao
+          .addReply(reply.parent, reply._id)
+          .then((rev) => console.log(rev));
         res.json(reply);
       });
     } else {
