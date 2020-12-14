@@ -1,7 +1,7 @@
 const reviewsModel = require("../models/reviews/reviews.model.server");
 const createReview = (review) => reviewsModel.create(review);
 const findReviewsForMovie = (movieId) =>
-  reviewsModel.find({ movieId: movieId });
+  reviewsModel.find({ movieId: movieId }).populate("replies");
 const findReviewsForUser = (userId) => reviewsModel.find({ userId: userId });
 const flagReview = (review) =>
   reviewsModel.findByIdAndUpdate(review._id, { flagged: true });

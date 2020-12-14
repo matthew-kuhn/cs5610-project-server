@@ -1,7 +1,7 @@
 const repliesModel = require("../models/replies/replies.model.server");
 const createReply = (reply) => repliesModel.create(reply);
 const findRepliesForReview = (reviewId) =>
-  repliesModel.find({ parent: reviewId });
+  repliesModel.find({ parent: reviewId }).populate("parent");
 const findRepliesForUser = (userId) => repliesModel.find({ userId: userId });
 const flagReply = (reply) =>
   repliesModel.findByIdAndUpdate(reply._id, { flagged: true });
