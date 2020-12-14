@@ -92,21 +92,37 @@ module.exports = (app) => {
   const blockUser = (req, res) => {
     const currentAdmin = req.session["currentUser"];
     const userId = req.params.userId;
-    usersDao.addBlockedUser(userId, currentAdmin).then((actualUser) => console.log(actualUser))
+    usersDao
+      .addBlockedUser(userId, currentAdmin)
+      .then((actualUser) => console.log(actualUser));
     usersDao.blockUser(userId).then((actualUser) => res.json(actualUser));
   };
 
   const unblockUser = (req, res) => {
     const currentAdmin = req.session["currentUser"];
     const userId = req.params.userId;
-    usersDao.deleteBlockedUser(userId, currentAdmin).then((actualUser) => console.log(actualUser))
+    usersDao
+      .deleteBlockedUser(userId, currentAdmin)
+      .then((actualUser) => console.log(actualUser));
     usersDao.unblockUser(userId).then((actualUser) => res.json(actualUser));
-  }
+  };
 
   const editUser = (req, res) => {
     const user = req.body;
-    usersDao.editUser(user).then((actualUser) => res.json(actualUser));
-  }
+    console.log(user);
+    usersDao.editUser(user).then((actualUser) => {
+      console.log(actualUser);
+      if (req.session["currentUser"]._id == actualUser._id) {
+        console.log("editing current user");
+        req.session.regenerate(() => {
+          req.session["currentUser"] = actualUser;
+          res.json(actualUser);
+        });
+      } else {
+        res.json(actualUser);
+      }
+    });
+  };
 
   app.post("/api/login", login);
   app.post("/api/register", register);
