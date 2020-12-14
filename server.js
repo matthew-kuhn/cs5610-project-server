@@ -12,8 +12,8 @@ const mongoose = require("mongoose");
 // );
 
 mongoose.connect(
-    `mongoose.connect('mongodb://localhost:27017/cs5610-backend-db`,
-    { useNewUrlParser: true, useUnifiedTopology: true }
+  `mongoose.connect('mongodb://localhost:27017/cs5610-backend-db`,
+  { useNewUrlParser: true, useUnifiedTopology: true }
 );
 const db = mongoose.connection;
 
@@ -34,12 +34,12 @@ const db = mongoose.connection;
 // );
 
 app.use(
-    session({
-        resave: false, // don't save session if unmodified
-        saveUninitialized: false, // don't create session until something stored
-        secret: "adopifjqeporihgepoih349ru834tgihej",
-        store: new MongoStore({mongooseConnection: db})
-    })
+  session({
+    resave: false, // don't save session if unmodified
+    saveUninitialized: false, // don't create session until something stored
+    secret: "adopifjqeporihgepoih349ru834tgihej",
+    store: new MongoStore({ mongooseConnection: db }),
+  })
 );
 
 const bodyParser = require("body-parser");
@@ -56,5 +56,6 @@ app.use(
 
 require("./controllers/users.controller.server")(app);
 require("./controllers/reviews.controller.server")(app);
+require("./controllers/replies.controller.server")(app);
 
 app.listen(process.env.PORT || 8080);

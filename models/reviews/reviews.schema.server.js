@@ -1,13 +1,14 @@
 const mongoose = require("mongoose");
 const reviewsSchema = mongoose.Schema(
   {
-        text: String,
-        userId: { type: mongoose.Schema.Types.ObjectId, ref: "UsersModel" },
-        movieId: String,
-        username: String,
-        movieTitle: String,
-        flagged: Boolean
+    text: String,
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: "UsersModel" },
+    replies: [{ type: mongoose.Schema.Types.ObjectId, ref: "RepliesModel" }],
+    movieId: String,
+    username: String,
+    movieTitle: String,
+    flagged: Boolean,
   },
-  { collection: "reviews" , timestamps: true}
+  { collection: "reviews", timestamps: true }
 );
 module.exports = reviewsSchema;
