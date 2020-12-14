@@ -22,7 +22,7 @@ module.exports = (app) => {
   };
 
   const getRepliesForReview = (req, res) => {
-    const reviewId = req.params.userId;
+    const reviewId = req.params.reviewId;
     repliesDao
       .findRepliesForReview(reviewId)
       .then((replies) => res.json(replies));
